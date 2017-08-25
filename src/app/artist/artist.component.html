@@ -1,0 +1,54 @@
+<div class="modal-header">
+   <h5 class="modal-title">Add Artist<span></span></h5>
+   <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+   </button>
+</div>
+<div class="modal-body">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                <label for="band">Band Name:</label>
+                <select class="form-control form-control-md" id="band">
+                    <option>Band 1</option>
+                    <option>Band 2</option>
+                    <option>Band 3</option>
+                    <option>Band 4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="position">Role:</label>
+                <select class="form-control form-control-md" id="position">
+                    <option>Vocalist</option>
+                    <option>Drummer</option>
+                    <option>Second Vocalist</option>
+                    <option>Base</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="usr">Name:</label>
+                <input type="text" class="form-control form-control-md" id="usr">
+            </div>
+            <div class="form-group">
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group" ngbRadioGroup name="radioBasic" [(ngModel)]="gender">
+                        <div class="row">
+                            <span class="form-control-sm"><input ngbButton ngbButtonLabel type="radio" value="male">&nbsp; Male </span>
+                            <span class="form-control-sm"><input ngbButton ngbButtonLabel type="radio" value="female">&nbsp; Female </span>
+                        </div>
+                    </div>
+                </div>
+            <div>
+
+                <!--<pre>{{gender | json}}</pre>-->
+            </div>
+            </div>
+            </div>  
+      </div>          
+         </div>
+</div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-sm" (click)="save()">save</button>
+        <button type="button" class="btn btn-default btn-sm" (click)="close()">Close</button>
+</div>

@@ -1,0 +1,36 @@
+<md-toolbar color="primary">
+  <!--<md-toolbar-row>-->
+    <span>Second Line</span>
+    <span class="example-spacer"></span>
+    <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>more_vert</md-icon></button>
+  <!--</md-toolbar-row>-->
+</md-toolbar>
+
+<md-menu #appMenu="mdMenu">
+  <a md-menu-item routerLinkActive="active">Home</a>
+  <a md-menu-item routerLink="/home/profile">profile</a>
+  <a md-menu-item routerLink="/home/profile/playlist">playlist</a>
+  <a md-menu-item routerLink="/home/setting">setting</a>
+</md-menu>
+
+<!--<nav class="navbar navbar-toggleable-md navbar-light bg-primary top-fixed">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="/home" routerLinkActive="active"> Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" routerLink="/home/profile" >profile</a>
+      <a class="nav-item nav-link" routerLink="/home/profile/playlist">playlist</a>
+      <a class="nav-item nav-link" routerLink="/home/setting">Setting</a>
+    </div>
+  </div>
+</nav>-->
+
+<router-outlet></router-outlet>
+
+<!--<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/tether/dist/js/tether.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
+

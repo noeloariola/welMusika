@@ -1,0 +1,34 @@
+<p>You can pass an existing component as content of the modal window. In this case remember to add content component
+as an <code>entryComponents</code> section of your <code>NgModule</code>.</p>
+
+<button class="btn btn-sm btn-outline-primary" (click)="openArtist()">Add Artist</button>
+
+<input type="text" [(ngModel)]="testBinding" />
+<h1>{{testBinding}}</h1>
+
+<div *ngIf="isHappy; then tmp1 else tmp2"></div>
+<a href="#">{{valueFromClass}}</a>
+
+<h1 [ngClass]="cssClasses"> CSS Class Binding</h1>
+
+<h1 [style.color]="isGreen ? 'green' : 'red' ">isGreen</h1>
+
+<h1 [ngStyle]="titleStyles">ngStyle</h1>
+
+<p [@animationSelector]='state' (click)="animateMe()">I will animate!</p> 
+
+<!--<h1 [(ngModel)]="sample">sample {{sample}}</h1>-->
+
+<ng-template #tmp1> TRUE </ng-template>
+<ng-template #tmp2> FALSE </ng-template>
+<ng-template #sampleLink> SAMPLE LINK</ng-template>
+
+<ng-template #other>Name does not exist!</ng-template>
+
+<script>
+    var fadeAnimation = animation([
+  style({ opacity: '{{ start }}' }),
+  animate('{{ time }}',
+    style({ opacity: '{{ end }}'))
+], { params: { time: '1000ms', start: 0, end: 1 }});
+</script>
