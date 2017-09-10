@@ -1,0 +1,48 @@
+<form class="example-form">
+            <h6>Employment Form</h6>
+    <md-grid-list cols="1" rowHeight="65px">
+        
+        <md-grid-tile >
+            <md-input-container class="example-full-width">
+                <input mdInput placeholder="First Name" value="">
+            </md-input-container>
+            <md-input-container class="example-full-width">
+                <input mdInput placeholder="Middle Name" value="">
+            </md-input-container>
+            <md-input-container class="example-full-width">
+                <input mdInput placeholder="Last Name" value="">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile>  
+            <md-select placeholder="Gender">
+                <md-option>Female</md-option>
+                <md-option>Male</md-option>
+            </md-select>
+            <md-select placeholder="Civil Status">
+                <md-option>S</md-option>
+                <md-option>M</md-option>
+            </md-select>
+
+            <md-input-container class="example-full-width">
+                <input mdInput #postalCode maxlength="11" placeholder="Contact Number" value="">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile>
+            <md-input-container class="example-full-width">
+                <input mdInput #postalCode maxlength="11" placeholder="SSS Number" value="">
+            </md-input-container>
+            <md-input-container class="example-full-width">
+                <input mdInput #postalCode maxlength="11" placeholder="Philhealth Number" value="">
+            </md-input-container>
+            <md-input-container class="example-full-width">
+                <input mdInput #postalCode maxlength="11" placeholder="Pag-ibig Number" value="">
+            </md-input-container>
+            <md-input-container class="example-full-width">
+                <input mdInput #postalCode maxlength="11" placeholder="Tin Number" value="">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile>
+            <h6>Employment Information</h6>
+        </md-grid-tile>
+  </md-grid-list>
+</form>

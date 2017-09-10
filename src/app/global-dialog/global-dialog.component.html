@@ -1,0 +1,18 @@
+<div class="container">
+    <h2 md-dialog-title>{{ data.title }}</h2>
+    <md-dialog-content class="modal-background">
+        <!--<div class="col-sm-12">-->
+            <label>Department title</label>
+            <input type="text" class="form-control" [(ngModel)]="dialogData">
+        <!--</div>-->
+    </md-dialog-content>
+    <md-dialog-actions>
+        <!--<div class="row">-->
+            <button class="btn btn-outline-primary form-control" [md-dialog-close]="dialogData">save</button>
+        <!--</div>-->
+        <!-- Can optionally provide a result for the closing dialog. -->
+        <!--<div class="row">-->
+            <button class="btn btn-outline-primary form-control" [md-dialog-close]="false">cancel</button>
+        <!--</div>-->
+    </md-dialog-actions>
+</div>

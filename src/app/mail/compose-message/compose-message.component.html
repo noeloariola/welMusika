@@ -1,0 +1,26 @@
+<md-tab-group>
+    <md-tab label="tab1">
+        <br />
+        <div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-sm-2">To:</label> &nbsp; 
+                    <input type="text" class="form-control col-sm-6  ">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <label class="col-sm-2">Subject:</label> &nbsp; 
+                    <input type="text" class="form-control col-sm-6">
+                </div>        
+            </div>
+        
+            <quill-editor [(ngModel)]="editorContent">
+            </quill-editor>
+            <br />
+            <div class="clearfix">
+                <button md-raised-button class="pull-right">send</button>
+            </div>
+        </div>
+    </md-tab>
+</md-tab-group>

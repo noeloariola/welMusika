@@ -1,0 +1,12 @@
+.content-header {
+  /*display: flex;*/
+  /*align-items: center;*/
+  justify-content: space-around;
+  margin: 5px 5px;
+}
+
+
+.mat-input-container, .mat-select {
+  margin-left: 5px;
+  margin-right: 5px;
+}

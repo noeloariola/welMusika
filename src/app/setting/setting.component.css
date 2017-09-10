@@ -19,3 +19,13 @@
 .mat-table {
   overflow: auto;
 }
+
+.c-pointer{
+  cursor: pointer;
+  color: blue;
+}
+.control{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  flex: 1 1rem;
+}

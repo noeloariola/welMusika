@@ -1,13 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {DataSource} from '@angular/cdk';
-import {MdPaginator} from '@angular/material';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {MdDialog, MdDialogRef, MD_DIALOG_DATA, MdButtonModule, MdDialogModule} from '@angular/material';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
+import { GlobalDialogComponent } from '../global-dialog/global-dialog.component';
 
 @Component({  
   selector: 'app-setting',
@@ -15,104 +11,192 @@ import 'rxjs/add/observable/merge';
   styleUrls: ['./setting.component.css']    
 })
 export class SettingComponent implements OnInit {
-    displayedColumns = ['userId', 'userName', 'progress', 'color'];
-    
+// x-www-form-urlencoded
     public departments: any = [];
-    dataSource = this.departments;
-    @ViewChild(MdPaginator) paginator: MdPaginator;
-    
     private headers = new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'});
         private header = new Headers({'Content-Type': 'application/x-www-form-urlencoded', 'Access-Control-Allow-Origin': '*'});
     
-    newDepartment: any = {};
-    constructor(private http: Http) {
-        
+    public uri = "ws://" + window.location.host +"/APIandMaven/endpoint";
+    public websocket = null;
+    public message = "";
+    
+    
+    
+    newDepartment: any = { id: '', title: '' };
+    public departmentTitle = '';
+    titleIsExist = false;
+    public clientInfo: {};
+    constructor(
+        private http: Http,
+        public dialog: MdDialog) {
+       
+            
      }
 
     
     ngOnInit() {
         this.get();
-        // this.getById("12");
+
+        // this.sendMessage();
+        // this.jacksonTest();
+        // this.refreshDepartmentTable();
+        
+    }
+
+
+
+    selectedOption: string;
+    public addDialog() {
+        let dialogRef = this.dialog.open(GlobalDialogComponent, {
+            height: '300px',
+            width: '420px',
+            data: {title: 'Add new department', department: '', action: 'add'}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.add(result);
+            }
+            
+        }); 
+    }
+    public editDialog(department) {
+        this.newDepartment.id = `${department.id}`;
+        this.newDepartment.title = department.title;
+
+        let dialogRef = this.dialog.open(GlobalDialogComponent, {
+            height: '300px',
+            width: '420px',
+            data: {title: 'Update department', department: department.title, action: 'edit'}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            if(result){
+                this.newDepartment.title = result;
+                this.update();
+            }
+            
+        }); 
     }
     public add(title): void {
-        console.log(title);
+        // console.log(title);
         let dep = {
             "title": title
         };
-        this.http.post('http://localhost:8080/JAXRS/api/department/add', dep, {headers: this.header})
-            .subscribe((response: Response) => {
-                this.departments = response.json();
-            });
-
-        // this.http.post('http://localhost:8080/JAXRS/api/department', {data : t   itle}, {headers: this.header })
-        //     .toPromise()
-        //     .then(() => this.get());
+        
+        if(title.trim() == ''){
+            alert("Please input a title!");
+        }else{
+            for(var row = 0; row < this.departments.length; row++){
+                // console.log(this.departments[1]['id']);
+                if(this.departments[row]['id'] == title){
+                    alert('Title already exist!');
+                    this.titleIsExist = true;
+                }
+            }
+            
+            if(this.titleIsExist == false){
+                this.http.post('http://192.168.1.7:8080/APIandMaven/api/department/add', dep, {headers: this.header})
+                    .subscribe((response: Response) => {
+                        this.openConnection();
+                        this.sendMessage(); 
+                        console.log(response.json());
+                        this.departments = response.json();
+                        this.departmentTitle = '';
+                });
+            }
+            
+        }
     }
 
     public get() {
-        this.http.get('http://localhost:8080/JAXRS/api/department', {headers : this.header}).map((response:Response) => {
+        this.http.get('http://192.168.1.7:8080/APIandMaven/api/department', {headers : this.headers}).map((response:Response) => {
             this.departments = response.json();
-            console.log(this.departments);
+            // console.log(this.departments);
             response.json();
         }).subscribe();
+        
     }
     
     public getById(id): void {
-        this.http.get(`http://localhost:8080/JAXRS/api/department/${id}`).map((response:Response) => {
+        this.http.get(`http://192.168.1.7:8080/APIandMaven/api/department/${id}`).map((response:Response) => {
             this.departments = response.json();
             console.log(this.departments);
             response.json();
-        }).subscribe();
+        }).subscribe(
+
+        );
     }
 
     public edit(department): void {
-        console.log(department.id);
-        console.log(department.title);
         this.newDepartment.id = `${department.id}`;
         this.newDepartment.title = department.title;
     }
     public update(){
-        console.log(this.newDepartment);
-        this.http.put('http://localhost:8080/JAXRS/api/department/update', this.newDepartment, {headers: this.header})
+        if(this.newDepartment.id == ''){
+            alert("Choose department to edit!");
+        }
+        else if(this.newDepartment.title == ''){
+            alert("Please input a title!");
+        }else{
+            console.log(this.newDepartment.title)
+            this.http.put('http://192.168.1.7:8080/APIandMaven/api/department/update', this.newDepartment, {headers: this.header})
             .subscribe((response: Response) => {
                 this.departments = response.json();
             });
+        }
+        
     }
     public delete(id): void {
-        var url = `http://localhost:8080/JAXRS/api/department/${id}`;
+        var url = `http://192.168.1.7:8080/APIandMaven/api/department/${id}`;
         this.http.delete(url).toPromise().then(() => this.get());
         
     }
 
+
+    public jacksonTest(){
+        let a = [
+            { "name" : "A", "program" : "IT" },
+            { "name" : "B", "program" : "CS" }
+        ];
+        //  this.http.post('http://192.168.1.7:8080/AA/api/rest/add', a , {headers: this.header})
+        //             .subscribe((response: Response) => {
+        //                 console.log("hep hep");
+        //             });        
+    }
+
+     
+     public openConnection() {
+         
+        this.websocket = new WebSocket(this.uri);
+        
+        this.websocket.onmessage = function (event) {
+			    console.log(event.data);
+                console.log("SHIT NAMAN OH!");
+        };
+
+        this.websocket.onopen = function () {
+            console.log("ON OPEN");
+        }
+        this.websocket.onclose = function () {
+            console.log("ON CLOSE");
+        }
+        this.websocket.onerror = function () {
+            console.log("ON ERROR");
+        }
+
+     }
+
+     public closeConnection() {
+        this.websocket.close();
+     }
+
+     
+     public sendMessage() {
+        if(this.websocket.readyState == 1) {
+            this.websocket.send("newDepartment");
+            console.log("SEND");
+        }
+    }
+
+     
+
 }
-
-export interface UserData {
-  id: string;
-  title: string;
-  edit: string;
-  delete: string;
-}
-
-// export class ExampleDataSource extends DataSource<any> {
-//   constructor(private _exampleDatabase: ExampleDatabase, private _paginator: MdPaginator) {
-//     super();
-//   }
-
-//   /** Connect function called by the table to retrieve one stream containing the data to render. */
-//   connect(): Observable<UserData[]> {
-//     const displayDataChanges = [
-//       this._exampleDatabase.dataChange,
-//       this._paginator.page,
-//     ];
-
-//     return Observable.merge(...displayDataChanges).map(() => {
-//       const data = this._exampleDatabase.data.slice();
-
-//       // Grab the page's slice of data.
-//       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-//       return data.splice(startIndex, this._paginator.pageSize);
-//     });
-//   }
-
-//   disconnect() {}
-// }

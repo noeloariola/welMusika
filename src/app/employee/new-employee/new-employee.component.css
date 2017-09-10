@@ -1,0 +1,8 @@
+.mat-input-container, .mat-select {
+  margin-left: 5px;
+  margin-right: 5px;
+}   
+
+.cdk-overlay-3 {
+  background-color: red;
+}

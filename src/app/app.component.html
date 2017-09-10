@@ -1,36 +1,55 @@
-<md-toolbar color="primary">
-  <!--<md-toolbar-row>-->
-    <span>Second Line</span>
-    <span class="example-spacer"></span>
-    <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>more_vert</md-icon></button>
-  <!--</md-toolbar-row>-->
+<md-toolbar color="primary" class="top-nav">
+    <h5>Payroll</h5>
+	<!--<img src="./../assets/icon/software_logo.png" class="img-fluid" alt="logo" height="50px">-->
+    <i class="example-spacer"></i>
+	
+    <button class="more-vert" md-button [mdMenuTriggerFor]="appMenu"><md-icon>more_vert</md-icon></button>
 </md-toolbar>
-
-<md-menu #appMenu="mdMenu">
-  <a md-menu-item routerLinkActive="active">Home</a>
-  <a md-menu-item routerLink="/home/profile">profile</a>
-  <a md-menu-item routerLink="/home/profile/playlist">playlist</a>
-  <a md-menu-item routerLink="/home/setting">setting</a>
+<md-menu #appMenu="mdMenu" xPosition="before">
+  <a md-menu-item routerLink="/home" routerLinkActive="active"><md-icon>account_circle</md-icon>profile</a>
+  <a md-menu-item (click)="openDialog()"><md-icon>mail_outline</md-icon>message</a>
+  <a md-menu-item routerLink="/home/setting"><md-icon>settings</md-icon>settings</a>
+  <a md-menu-item routerLink="/home/employees"><md-icon>lock_outline</md-icon>logout</a>
 </md-menu>
 
-<!--<nav class="navbar navbar-toggleable-md navbar-light bg-primary top-fixed">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">Navbar</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/home" routerLinkActive="active"> Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" routerLink="/home/profile" >profile</a>
-      <a class="nav-item nav-link" routerLink="/home/profile/playlist">playlist</a>
-      <a class="nav-item nav-link" routerLink="/home/setting">Setting</a>
-    </div>
-  </div>
-</nav>-->
+<!--<button (click)="toggleCollapse()" class="navbar-toggler navbar-toggler-right" type="button">
+<div class="collapse" [class.show]="show">
+	
+</div>-->
+<!--<div class="container-fluid">
+	<div class="row">-->
+		<div class="side-nav">
+			<h5 class="side-nav-title">Settings</h5><hr>
+			<ul>
+				<li><a md-menu-item routerLink="/home/employees"><md-icon>group</md-icon>employees</a></li>
+				<li><a md-menu-item routerLink="/home/mail"><md-icon>mail_outline</md-icon>Mail</a></li>
+				<li><a md-menu-item routerLink="/home/employees/performance"><md-icon>show_chart</md-icon> Performance</a></li>
+				<li><a md-menu-item routerLink="/home/setting"><md-icon>settings</md-icon>setting</a></li>
+			</ul>
+		</div>
 
-<router-outlet></router-outlet>
+		<div class="main-content">
+			<router-outlet></router-outlet>
+		</div>
+	<!--</div>
+</div>-->
 
-<!--<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+<script src="/../..../socket.io"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/tether/dist/js/tether.min.js"></script>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
-
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+  });
+</script>
+<!--<app-footer></app-footer>-->

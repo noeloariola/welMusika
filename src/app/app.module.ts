@@ -12,14 +12,21 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbModal, NgbCarouselConfig, NgbCarousel, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 import { PlaylistComponent } from './playlist/playlist.component';
-import { ProfileComponent } from './profile/profile.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule } from '@angular/material';
+import { MdButtonModule, MdListModule, 
+  MdTooltipModule, MdCardModule, MdTabsModule, MdMenuModule, MdToolbarModule,
+  MdIconModule, MdDialogModule, MdInputModule, MdGridListModule, MdSelectModule } from '@angular/material';
+
 import { QuillEditorModule } from 'ngx-quill-editor';
-import { ComposeMessageComponent } from './message/compose-message.component';
-import { MessageComponent } from './message/message.component';
+import { MailComponent } from './mail/mail.component';
 import { SettingComponent } from './setting/setting.component';
+import { FooterComponent } from './footer/footer.component';
+import { PerformanceComponent } from './employee/performance/performance.component';
+import { GlobalDialogComponent } from './global-dialog/global-dialog.component';
+import { ComposeMessageComponent } from './mail/compose-message/compose-message.component';
+import { NewEmployeeComponent } from './employee/new-employee/new-employee.component';
 
 
 @NgModule({
@@ -28,10 +35,14 @@ import { SettingComponent } from './setting/setting.component';
     ArtistComponent,
     DashboardComponent,
     PlaylistComponent,
-    ProfileComponent,
+    EmployeeComponent,
+    MailComponent,
+    SettingComponent,
+    FooterComponent,
+    PerformanceComponent,
+    GlobalDialogComponent,
     ComposeMessageComponent,
-    MessageComponent,
-    SettingComponent
+    NewEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,17 +54,26 @@ import { SettingComponent } from './setting/setting.component';
     QuillEditorModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MdButtonModule,
+    MdButtonModule, 
     MdCardModule,
     MdMenuModule,
     MdToolbarModule,
-    MdIconModule
+    MdIconModule,
+    MdTabsModule,
+    MdDialogModule,
+    MdTooltipModule,
+    MdListModule,
+    MdInputModule,
+    MdGridListModule,
+    MdSelectModule
     
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [GlobalDialogComponent,ComposeMessageComponent,NewEmployeeComponent]
 })
 
 export class AppModule {
   
- }
+}

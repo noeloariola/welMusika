@@ -64,11 +64,11 @@ export class DashboardComponent implements OnInit {
   }
     
   ngOnInit() {
-     this.http.get('http://localhost:8080/JAXRS/api/author').map((response:Response) => {
-                this.sample = response.json();
-                console.log(this.sample[1]);
-                response.json();
-            }).subscribe();
+    //  this.http.get('http://localhost:8080/JAXRS/api/author').map((response:Response) => {
+    //             this.sample = response.json();
+    //             console.log(this.sample[1]);
+    //             response.json();
+    //         }).subscribe();
   }
 
 
